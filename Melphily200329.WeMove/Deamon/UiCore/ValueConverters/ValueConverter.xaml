@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Deamon.UiCore.ValueConverters">
+
+    <Visibility x:Key="VisibilityVisible">Visible</Visibility>
+    <Visibility  x:Key="VisibilityCollapsed">Collapsed</Visibility>
+
+    <local:BooleanToObjectConverter x:Key="BoolToVisibility" TrueValue="{StaticResource VisibilityVisible}" FalseValue="{StaticResource VisibilityCollapsed}"/>
+</ResourceDictionary>

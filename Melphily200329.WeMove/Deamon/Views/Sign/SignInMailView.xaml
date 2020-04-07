@@ -1,0 +1,52 @@
+﻿<local:AnimatableBaseView x:Class="Deamon.Views.Sign.SignInMailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Deamon.Views.Sign"
+             xmlns:uicoreattached="clr-namespace:Deamon.UiCore.AttachedProperties"
+             DataContext="{Binding Path=SignInMailViewModel, Source={StaticResource Locator}}"
+             >
+    <Grid>
+
+        <Grid Background="{StaticResource LightBackground}" Width="430" Height="396" HorizontalAlignment="Center">
+
+            <Border Padding="36 32 36 0">
+                <Grid>
+                    <StackPanel VerticalAlignment="Top">
+                        <Viewbox HorizontalAlignment="Left" Height="38">
+                            <Path VerticalAlignment="Center" Width="280"
+          Data="M 20,80 L 100,80 L 100,0 L 140,60 L180,0 L180,80 L260 80 L260,120 L180,120 L180,200 L140,140 L100,200 L100,120 L20,120Z"
+          Stroke="{StaticResource SpeciVerticalLinearBrush}" StrokeThickness="30"
+          Stretch="None" Fill="{StaticResource LightForeground}"/>
+                        </Viewbox>
+                      
+
+                        <StackPanel Margin="0 70 0 0">
+                            <TextBox Style="{StaticResource EmailTextBox}" Text="{Binding Email,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Tag="电子邮件" />
+
+                            <CheckBox IsChecked="{Binding NeedRemember}" IsEnabled="{Binding CanSign}" Margin="0 20" Style="{StaticResource RememberCheckBox}" Content="记住我"/>
+
+                            <Button IsEnabled="{Binding CanSign}" uicoreattached:IsBusyProperty.Value="{Binding IsSigning}"  Style="{StaticResource SignButton}" Content="下一步" Command="{Binding SignCommand}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+
+            </Border>
+
+            <StackPanel Margin="0 322 0 0">
+
+                <Button Command="{Binding GotoCommand}" Margin="36 16 0 0" Style="{StaticResource OnlyTextButton}" Content="创建一个新账户"/>
+
+            </StackPanel>
+
+        </Grid>
+
+        <Rectangle Margin="0 250 0 0" Height="1" Fill="{StaticResource SpeciVerticalLinearBrush}"/>
+
+        <Grid Background="#A0FFFFFF" Visibility="{Binding IsSigning,Converter= {StaticResource BoolToVisibility}}">
+            <local:SignLoadingView/>
+        </Grid>
+    </Grid>
+</local:AnimatableBaseView>
