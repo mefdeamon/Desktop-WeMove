@@ -18,7 +18,7 @@ namespace Deamon
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
+            // 加了个测试注释
             // Register modules into DI container
             ServiceProvider.LoadModule(new MainModule());
 
