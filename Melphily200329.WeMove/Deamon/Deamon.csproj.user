@@ -38,6 +38,18 @@
     <Page Update="Themes\Generic.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UiCore\Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiCore\Styles\CheckBoxs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiCore\Styles\PasswordBoxs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiCore\Styles\TextBoxs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

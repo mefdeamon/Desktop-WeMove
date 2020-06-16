@@ -9,6 +9,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UiCore/ValueConverters/ValueConverter.xaml"/>
                 <ResourceDictionary Source="/Themes/DefaultStyles.xaml"/>
+                <ResourceDictionary Source="/UiCore/Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="/UiCore/Styles/TextBoxs.xaml"/>
+                <ResourceDictionary Source="/UiCore/Styles/PasswordBoxs.xaml"/>
+                <ResourceDictionary Source="/UiCore/Styles/CheckBoxs.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
