@@ -1,4 +1,5 @@
 ﻿using Melphi.Base;
+using Melphi.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,13 +22,36 @@ namespace Deamon.ViewModels.Sign
                 {
 
                     // TODO :SQL Query
-                    //await Task.Delay(2000);
 
                     await Task.Run(() =>
                     {
-                        // TODO :SQL Query
-                        System.Threading.Thread.Sleep(5000);
-                        App.Current.Dispatcher.Invoke(() => ServiceProvider.Get<SignViewModel>().CurrentView = new Views.Sign.SignInPassView());
+                        string ConnectionString = @"server = 127.0.0.1; userid = root; password = deamon; database = wemove; persistsecurityinfo = True;";
+                        MySqlDatabaseEntity mduser = new MySqlDatabaseEntity(ConnectionString);
+
+                        // 打开数据库
+                        mduser.Open();
+
+                        // sql 查询语句
+                        string sqlCmdStr = @"select Email from user_info";
+
+                        var data = mduser.ExecuteSelect(sqlCmdStr);
+                        if (data.Tables[0] != null && data.Tables[0].Rows.Count > 0)
+                        {
+                            var datt = data.Tables[0];
+
+                            if (datt.Rows[0]["Email"].ToString() == email)
+                            {
+                                App.Current.Dispatcher.Invoke(() => ServiceProvider.Get<SignViewModel>().CurrentView = new Views.Sign.SignInPassView());
+                            }
+                            else
+                            {
+                                System.Windows.MessageBox.Show("邮箱验证失败，不存在当前输入的邮箱！请重试！");
+                            }
+                        }
+
+                        // 关闭数据库
+                        mduser.Close();
+
                     });
 
                 });

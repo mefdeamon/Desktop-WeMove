@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deamon", "Deamon\Deamon.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Melphi.IconSet", "Melphi.IconSet\Melphi.IconSet.csproj", "{B9857818-5002-41BE-A89A-28D7E8179F05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Melphi.Base", "Melphi.Base\Melphi.Base.csproj", "{1C8C2C08-8053-424F-8F4D-91909B88FEB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Melphi.Base", "Melphi.Base\Melphi.Base.csproj", "{1C8C2C08-8053-424F-8F4D-91909B88FEB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Melphi.Core", "Melphi.Core\Melphi.Core.csproj", "{ED311DA1-01EE-4489-AD4C-E29789512EEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1C8C2C08-8053-424F-8F4D-91909B88FEB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C8C2C08-8053-424F-8F4D-91909B88FEB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C8C2C08-8053-424F-8F4D-91909B88FEB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED311DA1-01EE-4489-AD4C-E29789512EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED311DA1-01EE-4489-AD4C-E29789512EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED311DA1-01EE-4489-AD4C-E29789512EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED311DA1-01EE-4489-AD4C-E29789512EEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

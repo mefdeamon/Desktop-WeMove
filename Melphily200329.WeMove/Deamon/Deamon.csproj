@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Melphi.Base\Melphi.Base.csproj" />
+    <ProjectReference Include="..\Melphi.Core\Melphi.Core.csproj" />
     <ProjectReference Include="..\Melphi.IconSet\Melphi.IconSet.csproj" />
   </ItemGroup>
 
