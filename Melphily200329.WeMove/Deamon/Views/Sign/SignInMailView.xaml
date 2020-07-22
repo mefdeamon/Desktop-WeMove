@@ -13,6 +13,22 @@
 
             <Border Padding="36 32 36 0">
                 <Grid>
+
+                    <WrapPanel Visibility="{Binding HasError,Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0 50 0 0">
+                        <Viewbox Width="25">
+                            <Grid >
+                                <Ellipse  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="20" Height="20" Fill="Red"/>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="16" Foreground="White" Text="i"></TextBlock>
+                            </Grid>
+                        </Viewbox>
+
+                        <TextBlock Margin="10 0 0 0" TextWrapping="Wrap"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding ErrorMessage}" Foreground="Red" FontSize="18"/>
+
+                    </WrapPanel>
+                   
                     <StackPanel VerticalAlignment="Top">
                         <Viewbox HorizontalAlignment="Left" Height="38">
                             <Path VerticalAlignment="Center" Width="280"
