@@ -1,18 +1,23 @@
-﻿using Melphi.Base;
+﻿#region Deamon
+// the app's classes of wemove project
+#endregion
+
+using Melphi.Base;
 using Melphi.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Deamon.ViewModels.Sign
 {
-    public class SignInPassViewModel : NotifyPropertyChanged
+    public class SignInPassViewModel : BaseSignInViewModel
     {
         /// <summary>
-        /// 默认构造函数
+        /// Default constructor
         /// </summary>
         public SignInPassViewModel()
         {
@@ -24,7 +29,7 @@ namespace Deamon.ViewModels.Sign
                     await SignIn();
                 });
             });
-            BackCommand = new RelayCommand(() =>
+            GotoCommand = new RelayCommand(() =>
              {
                  ServiceProvider.Get<SignViewModel>().CurrentView = new Views.Sign.SignInMailView();
              });
@@ -33,7 +38,7 @@ namespace Deamon.ViewModels.Sign
         private string password;
 
         /// <summary>
-        /// password 
+        /// Password 
         /// </summary>
         public string Password
         {
@@ -45,69 +50,11 @@ namespace Deamon.ViewModels.Sign
             }
         }
 
-
-        private bool hasError = false;
-
-        /// <summary>
-        /// has a error occured
-        /// </summary>
-        public bool HasError
-        {
-            get { return hasError; }
-            set { hasError = value; OnPropertyChanged(); }
-        }
-
-
-        private string errorMessage = "";
+        public override ICommand SignCommand { get; set; }
+        public override ICommand GotoCommand { get; set; }
 
         /// <summary>
-        /// the error message
-        /// </summary>
-        public string ErrorMessage
-        {
-            get { return errorMessage; }
-            set { errorMessage = value; OnPropertyChanged(); }
-        }
-
-
-
-        private bool needRemember;
-
-        public bool NeedRemember
-        {
-            get { return needRemember; }
-            set { needRemember = value; OnPropertyChanged(); }
-        }
-
-
-        private bool canSign;
-
-        /// <summary>
-        /// Is ture U Can Sign In
-        /// </summary>
-        public bool CanSign
-        {
-            get { return canSign; }
-            set { canSign = value; OnPropertyChanged(); }
-        }
-
-        private bool isSigning;
-
-        /// <summary>
-        /// show the status of Sign Button is Running or not
-        /// </summary>
-        public bool IsSigning
-        {
-            get { return isSigning; }
-            set { isSigning = value; OnPropertyChanged(); }
-        }
-
-        public ICommand SignCommand { get; private set; }
-        public ICommand BackCommand { get; private set; }
-
-
-        /// <summary>
-        /// 登录密码验证
+        /// Password verification
         /// </summary>
         /// <returns></returns>
         private async Task SignIn()
@@ -174,20 +121,6 @@ namespace Deamon.ViewModels.Sign
 
             });
         }
-
-
-        /// <summary>
-        /// 等待多少毫秒，然后擦除错误消息展示
-        /// </summary>
-        private void WipeErrorAffterMS(int ms = 2000)
-        {
-            Task.Run(() =>
-            {
-                System.Threading.Thread.Sleep(ms);
-                ErrorMessage = "";
-                HasError = false;
-            });
-        }
-
+     
     }
 }

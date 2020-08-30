@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:uicoreattached="clr-namespace:Deamon.UiCore.AttachedProperties"
                     >
 
     <Style TargetType="{x:Type TextBox}" x:Key="EmailTextBox">
@@ -15,7 +16,8 @@
         <Setter Property="TextBlock.FontWeight" Value="Regular" />
         <Setter Property="Background" Value="{StaticResource LightBackground}" />
         <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
-
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="uicoreattached:IsFocusedProperty.Value" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">

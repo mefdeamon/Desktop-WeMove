@@ -53,7 +53,7 @@
 
             <StackPanel Margin="0 322 0 0">
 
-                <Button Command="{Binding BackCommand}" Margin="36 16 0 0" Style="{StaticResource OnlyTextButton}" Content="返回邮箱验证"/>
+                <Button Command="{Binding GotoCommand}" Margin="36 16 0 0" Style="{StaticResource OnlyTextButton}" Content="返回邮箱验证"/>
 
             </StackPanel>
 

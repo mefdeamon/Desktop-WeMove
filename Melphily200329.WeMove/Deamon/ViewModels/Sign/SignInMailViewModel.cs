@@ -1,19 +1,21 @@
-﻿using Melphi.Base;
+﻿#region Deamon
+// the app's classes of wemove project
+#endregion
+
+using Deamon.UiCore;
+using Melphi.Base;
 using Melphi.Core;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Deamon.UiCore;
 
 namespace Deamon.ViewModels.Sign
 {
-    public class SignInMailViewModel : NotifyPropertyChanged
+    public class SignInMailViewModel : BaseSignInViewModel
     {
 
         /// <summary>
-        /// 默认构造函数
+        /// Default constructor
         /// </summary>
         public SignInMailViewModel()
         {
@@ -30,8 +32,6 @@ namespace Deamon.ViewModels.Sign
               });
         }
 
-
-
         private string email;
 
         public string Email
@@ -44,72 +44,11 @@ namespace Deamon.ViewModels.Sign
             }
         }
 
-
-        private bool hasError = false;
-
-        /// <summary>
-        /// has a error occured
-        /// </summary>
-        public bool HasError
-        {
-            get { return hasError; }
-            set { hasError = value; OnPropertyChanged(); }
-        }
-
-
-        private string errorMessage = "";
+        public override ICommand SignCommand { get; set ; }
+        public override ICommand GotoCommand { get; set; }
 
         /// <summary>
-        /// the error message
-        /// </summary>
-        public string ErrorMessage
-        {
-            get { return errorMessage; }
-            set { errorMessage = value; OnPropertyChanged(); }
-        }
-
-
-
-        private bool needRemember;
-
-        public bool NeedRemember
-        {
-            get { return needRemember; }
-            set { needRemember = value; OnPropertyChanged(); }
-        }
-
-
-        private bool canSign;
-
-        /// <summary>
-        /// Is ture U Can Sign In
-        /// </summary>
-        public bool CanSign
-        {
-            get { return canSign; }
-            set { canSign = value; OnPropertyChanged(); }
-        }
-
-        private bool isSigning;
-
-        /// <summary>
-        /// show the status of Sign Button is Running or not
-        /// </summary>
-        public bool IsSigning
-        {
-            get { return isSigning; }
-            set { isSigning = value; OnPropertyChanged(); }
-        }
-
-
-        public ICommand SignCommand { get; private set; }
-        public ICommand GotoCommand { get; private set; }
-
-
-
-
-        /// <summary>
-        /// 邮箱登录验证
+        /// Email verification
         /// </summary>
         /// <returns></returns>
         private async Task Sign()
@@ -168,20 +107,5 @@ namespace Deamon.ViewModels.Sign
 
             });
         }
-
-        /// <summary>
-        /// 等待多少毫秒，然后擦除错误消息展示
-        /// </summary>
-        private void WipeErrorAffterMS(int ms = 2000)
-        {
-            Task.Run(() =>
-            {
-                System.Threading.Thread.Sleep(ms);
-                ErrorMessage = "";
-                HasError = false;
-            });
-        }
-
-
     }
 }
