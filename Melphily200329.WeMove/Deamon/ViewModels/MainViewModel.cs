@@ -1,39 +1,21 @@
-﻿using Deamon.Models;
-using Melphi.Base;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Deamon
+// the app's classes of wemove project
+#endregion
+
 using System.Windows;
-using System.Windows.Input;
 
 namespace Deamon.ViewModels
 {
-    public class MainViewModel : NotifyPropertyChanged
+    public class MainViewModel : BaseWindowModel
     {
 
         /// <summary>
         /// 默认构造函数
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(Window window) : base(window)
         {
-            MinimCommand = new RelayCommand(() =>
-             {
-                 App.Current.MainWindow.WindowState = WindowState.Minimized;
-             });
-
-            CloseCommand = new RelayCommand(() =>
-            {
-                App.Current.MainWindow.Close();
-            });
 
         }
-
-        public ICommand MinimCommand { get; private set; }
-        public ICommand CloseCommand { get; private set; }
 
 
     }

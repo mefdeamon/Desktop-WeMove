@@ -6,4 +6,5 @@
     <Visibility  x:Key="VisibilityCollapsed">Collapsed</Visibility>
 
     <local:BooleanToObjectConverter x:Key="BoolToVisibility" TrueValue="{StaticResource VisibilityVisible}" FalseValue="{StaticResource VisibilityCollapsed}"/>
+    <local:BooleanToObjectConverter x:Key="BoolToBorderThickness" TrueValue="2" FalseValue="0"/>
 </ResourceDictionary>

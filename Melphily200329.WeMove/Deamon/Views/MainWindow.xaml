@@ -6,87 +6,175 @@
         xmlns:local="clr-namespace:Deamon.Views"
         xmlns:uicoreattached="clr-namespace:Deamon.UiCore.AttachedProperties"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         WindowStyle="None" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        Title="WeMove" Height="462" Width="1000">
-    <Window.DataContext>
+        Title="WeMove"
+        MinHeight="{Binding WindowMinimumHeight}" MinWidth="{Binding WindowMinimumWidth}" 
+        Height="560" Width="1000">
+    <!--<Window.DataContext>
         <Binding Path="MainViewModel" Source="{StaticResource Locator}"/>
-    </Window.DataContext>
+    </Window.DataContext>-->
 
     <Window.Resources>
-        
+
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
-                        <Border Background="{StaticResource LightBackground}" BorderBrush="{StaticResource SecondLightBackground}" BorderThickness="1">
+                        <!-- Outer border with the drop shadow margin -->
+                        <Border Padding="{Binding OuterMarginSize, FallbackValue=0}" BorderBrush="{StaticResource SpeciColorPurpleBrush}" BorderThickness="{Binding FlatBorderThickness}">
 
+                            <!-- Main window outline -->
                             <Grid>
-                                <Border Background="{StaticResource LightBackground}">
+
+                                <!-- Outer dragging border -->
+                                <Border BorderThickness="{Binding BeingMoved, Converter={StaticResource BoolToBorderThickness}}"
+                                        Panel.ZIndex="2"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                        BorderBrush="{StaticResource SpeciVerticalLinearBrush}" />
+
+                                <!-- Opacity mask for corners on grid -->
+                                <Border x:Name="Container"
+                                        Background="{StaticResource ThirdLightBackground}"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
+
+                                <!-- Window border and drop shadow -->
+                                <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                    Background="{StaticResource LightBackground }">
                                     <Border.Effect>
-                                        <DropShadowEffect Color="{StaticResource SpeciPurpleColor}" ShadowDepth="0" Opacity="1"/>
+                                        <DropShadowEffect ShadowDepth="0" BlurRadius="{Binding OuterMarginSize.Top}" Opacity="0.5" />
                                     </Border.Effect>
                                 </Border>
 
+                                <!-- The main window content -->
                                 <Grid>
+
+                                    <!-- Corner clipping -->
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}" />
+                                    </Grid.OpacityMask>
+
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="65"/>
-                                        <RowDefinition Height="*"/>
+
+                                        <!-- Title Bar -->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}" />
+
+                                        <!-- Internet Connection Bar -->
+                                        <RowDefinition Height="Auto" />
+
+                                        <!-- Window Content -->
+                                        <RowDefinition Height="*" />
+
                                     </Grid.RowDefinitions>
 
-                                    <!-- 功能区 -->
-                                    <Border Background="{StaticResource SecondLightBackground}" BorderBrush="{StaticResource ThirdLightBackground}" BorderThickness="0 0 0 1">
+                                    <!-- Title Bar -->
+                                    <Grid Grid.Column="0" Panel.ZIndex="1">
 
-                                        <DockPanel LastChildFill="False">
+                                        <Grid.ColumnDefinitions>
+                                            <!-- Icon -->
+                                            <ColumnDefinition Width="Auto" />
+                                            <!-- Title -->
+                                            <ColumnDefinition Width="*" />
+                                            <!-- Windows Button -->
+                                            <ColumnDefinition Width="Auto" />
 
-                                            <Viewbox Margin="20 0 0 0" HorizontalAlignment="Left" Height="30">
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Icon -->
+                                       <Viewbox Margin="10 0 0 0" HorizontalAlignment="Left" Height="28" VerticalAlignment="Center">
+                                            <Border Background="OrangeRed">
                                                 <Path VerticalAlignment="Center" Width="280"
-          Data="M 20,80 L 100,80 L 100,0 L 140,60 L180,0 L180,80 L260 80 L260,120 L180,120 L180,200 L140,140 L100,200 L100,120 L20,120Z"
-          Stroke="{StaticResource SpeciVerticalLinearBrush}" StrokeThickness="30"
-          Stretch="None" Fill="{StaticResource LightForeground}"/>
-                                            </Viewbox>
+                                                      Data="M 20,80 L 100,80 L 100,0 L 140,60 L180,0 L180,80 L260 80 L260,120 L180,120 L180,200 L140,140 L100,200 L100,120 L20,120Z"
+                                                      Stroke="{StaticResource SpeciVerticalLinearBrush}" StrokeThickness="1"
+                                                      Fill="{StaticResource SpeciVerticalLinearBrush}"
+                                                      Stretch="None"/>
+                                            </Border>
+                                        </Viewbox>
+                                        <!--<Viewbox Margin="10 0 0 0" HorizontalAlignment="Left" Height="28" VerticalAlignment="Center">
+                                            <Border Background="{StaticResource SpeciVerticalLinearBrush}">
+                                                <Path VerticalAlignment="Center" Width="280"
+                                                      Data="M 20,80 L 100,80 L 100,0 L 140,60 L180,0 L180,80 L260 80 L260,120 L180,120 L180,200 L140,140 L100,200 L100,120 L20,120Z"
+                                                      Stroke="{StaticResource SpeciVerticalLinearBrush}" StrokeThickness="1"
+                                                      Stretch="None" Fill="{StaticResource LightForeground}"/>
+                                            </Border>
+                                        </Viewbox>-->
 
-                                            <!--<TextBlock Margin="32 0 0 0" VerticalAlignment="Center" DockPanel.Dock="Left" Text="We Move" FontSize="25" FontFamily="Microsoft YaHei UI" FontWeight="Light"/>-->
+                                        <!-- Title -->
+                                        <TextBlock Grid.Column="1" Margin="10 0 0 0"
+                                                   FontFamily="Consola" FontSize="20" FontWeight="DemiBold"
+                                                   Foreground="{StaticResource SpeciVerticalLinearBrush}"
+                                                   Text="We Move"
+                                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                                            <StackPanel VerticalAlignment="Top" DockPanel.Dock="Right" Orientation="Horizontal">
+                                        <!-- Window Buttons -->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
 
-                                                <Button Command="{Binding MinimCommand}" Style="{StaticResource MinimButton}"/>
-                                                <Button Command="{Binding CloseCommand}" Style="{StaticResource CloseButton}"/>
+                                            <Button Command="{Binding MinimizeCommand}"
+                                                    Style="{StaticResource MinimButton}"/>
+                                            <Button Command="{Binding MaximizeCommand}" 
+                                                    uicoreattached:IsMaximizedProperty.Value="{Binding IsMaximized}"
+                                                    Style="{StaticResource MaximButton}"/>
+                                            <Button Command="{Binding CloseCommand}" 
+                                                    Style="{StaticResource CloseButton}" />
+                                        </StackPanel>
 
-                                            </StackPanel>
+                                    </Grid>
 
-                                        </DockPanel>
+                                    <!-- No Internet Connection Bar -->
+                                    <Border Visibility="Collapsed"
+                                        BorderThickness="1"
+                                        BorderBrush="{StaticResource SpeciVerticalLinearBrush}"
+                                        Grid.Row="1"
+                                        Padding="10" Margin="10 0"
+                                        Panel.ZIndex="1">
 
+                                        <Label 
+                                            HorizontalAlignment="Center"
+                                            Foreground="{StaticResource DarkForeground}"
+                                            >
+                                            No Internet connection. Please check your network
+                                        </Label>
 
                                     </Border>
 
-                                    <!-- 客户区 -->
-                                    <Border Grid.Row="1">
-                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                    <!-- Page Content -->
+                                    <Border Grid.Row="2" Padding="{Binding InnerContentPadding}" ClipToBounds="True">
+                                        <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
 
                                 </Grid>
+
                             </Grid>
-
-
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
         </Style>
-
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="66" CornerRadius="0" GlassFrameThickness="0" ResizeBorderThickness="1"/>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            />
     </WindowChrome.WindowChrome>
-
     <Grid>
 
-
         <TextBlock FontFamily="Microsoft YaHei UI" Text="欢迎进入 We Move 的世界" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="{StaticResource SpeciVerticalLinearBrush}"/>
+        <DockPanel LastChildFill="True">
+            <Grid Height="200" Background="{StaticResource SpeciVerticalLinearBrush}" DockPanel.Dock="Top">
+                
+            </Grid>
+
+            <Grid DockPanel.Dock="Bottom" Height="5" Background="{StaticResource DarkForeground}"></Grid>
+
+            <Grid DockPanel.Dock="Top" Background="{StaticResource GridDrawingBrush}"></Grid>
+
+        </DockPanel>
+
 
     </Grid>
 

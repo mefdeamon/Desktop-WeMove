@@ -33,6 +33,8 @@ namespace Deamon.ViewModels.Sign
              {
                  ServiceProvider.Get<SignViewModel>().CurrentView = new Views.Sign.SignInMailView();
              });
+
+            Password = "deamon";
         }
 
         private string password;
@@ -121,6 +123,6 @@ namespace Deamon.ViewModels.Sign
 
             });
         }
-     
+
     }
 }

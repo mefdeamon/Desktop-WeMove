@@ -30,6 +30,8 @@ namespace Deamon.ViewModels.Sign
               {
                   ServiceProvider.Get<SignViewModel>().CurrentView = new Views.Sign.SignUpView();
               });
+
+            Email = "mel@wem.com";
         }
 
         private string email;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Deamon.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace Deamon.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new MainViewModel(this);
         }
     }
 }

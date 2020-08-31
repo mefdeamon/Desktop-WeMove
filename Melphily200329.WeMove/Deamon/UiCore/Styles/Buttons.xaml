@@ -11,6 +11,7 @@
         <Setter Property="Foreground" Value="#FF000000" />
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="ToolTip" Value="关闭"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -103,6 +104,7 @@
         <Setter Property="Foreground" Value="#FF000000" />
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="ToolTip" Value="最小化"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -188,6 +190,159 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type Button}" x:Key="MaximButton" >
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Foreground" Value="#FF000000" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="uicoreattached:IsMaximizedProperty.Value" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="grid"
+                          Background="{TemplateBinding Background}"
+                          MinHeight="36"
+                          MinWidth="36">
+
+                        <Path x:Name="bigicon"
+                              Width="15"
+                              Height="15"
+                              Stroke="{TemplateBinding Foreground}"
+                              StrokeThickness="1"
+                              Stretch="Uniform"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                                  RenderTransformOrigin="0.5 0.5"
+                              Opacity="0.8">
+                            <Path.Data>
+                                <GeometryGroup FillRule="Nonzero">
+                                    <RectangleGeometry Rect="0 0 15 10"/>
+                                </GeometryGroup>
+                            </Path.Data>
+                            <Path.LayoutTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="OuterIconScale" ScaleX="1.5" ScaleY="1.5"/>
+                                </TransformGroup>
+                            </Path.LayoutTransform>
+                        </Path>
+                        <Path x:Name="icon"
+                              Width="15"
+                              Height="15"
+                              Stroke="{TemplateBinding Foreground}"
+                              StrokeThickness="1"
+                              Stretch="Uniform"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              RenderTransformOrigin="0.5 0.5"
+                              Opacity="0.8">
+                            <Path.Data>
+                                <GeometryGroup FillRule="Nonzero">
+                                    <RectangleGeometry Rect="0 0 15 10"/>
+                                </GeometryGroup>
+                            </Path.Data>
+                            <Path.LayoutTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="IconScale"/>
+                                </TransformGroup>
+                            </Path.LayoutTransform>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="uicoreattached:IsMaximizedProperty.Value" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="OuterIconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="1.5" To="1"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="OuterIconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="1.5" To="1"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="OuterIconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="1" To="1.5"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="OuterIconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="1" To="1.5"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="uicoreattached:IsMaximizedProperty.Value" Value="False"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="1" To="1.4"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="1" To="1.4"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="1.4" To="1"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="1.4" To="1"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+
+                        <Trigger Property="uicoreattached:IsMaximizedProperty.Value" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="bigicon"/>
+                            <Setter Property="ToolTip" Value="窗口化"/>
+                        </Trigger>
+                        <Trigger Property="uicoreattached:IsMaximizedProperty.Value" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="bigicon"/>
+                            <Setter Property="ToolTip" Value="最大化"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource SpeciColorBlueBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#99000000" />
+                            <Setter TargetName="icon" Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="{x:Type Button}" x:Key="SignButton">
         <Setter Property="Background" Value="{StaticResource SpeciVerticalLinearBrush}"/>
@@ -320,6 +475,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
 </ResourceDictionary>
