@@ -18,6 +18,8 @@ namespace Deamon.Models
         {
 
             binder.Bind<IIconSet, FdoiIconSet>();
+            
+            binder.BindSingleton<MaterialSet>();
 
             binder.BindSingleton<MainViewModel>();
 

@@ -4,9 +4,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Deamon.Views.Sign"
-             mc:Ignorable="d"  Background="{StaticResource GridDrawingBrush}"
+                          xmlns:uicontrols="clr-namespace:Deamon.UiCore.Controls"
+             mc:Ignorable="d"  Background="{StaticResource SpeciVerticalLinearBrush}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+            <uicontrols:IconButton 
+                Background="#FF3B5998" 
+                Style="{StaticResource StretchIconButton}" 
+                IconData="{Binding MaterialSet.Plus, Source={StaticResource Locator}}" 
+                />
+            <uicontrols:IconButton 
+                Background="#FF1DA1F2" 
+                Style="{StaticResource StretchIconButton}" 
+                IconData="{Binding MaterialSet.Share, Source={StaticResource Locator}}" 
+                />
+
+            <uicontrols:IconButton
+                Background="#FF738A8D"   
+                Style="{StaticResource StretchIconButton}" 
+                IconData="{Binding MaterialSet.Heart, Source={StaticResource Locator}}"
+                RenderTransformOrigin="0.5 0.5">
+                <uicontrols:IconButton.LayoutTransform>
+                    <RotateTransform Angle="180"/>
+                </uicontrols:IconButton.LayoutTransform>
+            </uicontrols:IconButton>
+            <uicontrols:IconButton 
+                Background="#FF848484"
+                Style="{StaticResource StretchIconButton}" 
+                IconData="{Binding MaterialSet.Trash, Source={StaticResource Locator}}" 
+                RenderTransformOrigin="0.5 0.5">
+                <uicontrols:IconButton.LayoutTransform>
+                    <RotateTransform Angle="180"/>
+                </uicontrols:IconButton.LayoutTransform>
+            </uicontrols:IconButton>
+            <uicontrols:IconButton 
+                Background="#FFFF6550" 
+                Style="{StaticResource StretchIconButton}" 
+                IconData="{Binding MaterialSet.Setting, Source={StaticResource Locator}}" 
+                />
+
+        </StackPanel>
     </Grid>
 </local:AnimatableBaseView>

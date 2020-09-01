@@ -44,6 +44,9 @@
     <Page Update="UiCore\Styles\CheckBoxs.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UiCore\Styles\IconButtons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UiCore\Styles\PasswordBoxs.xaml">
       <SubType>Designer</SubType>
     </Page>

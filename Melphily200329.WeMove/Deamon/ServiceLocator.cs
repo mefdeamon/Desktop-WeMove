@@ -11,6 +11,7 @@ namespace Deamon
     public class ServiceLocator
     {
         public IIconSet IconSource => ServiceProvider.Get<IIconSet>();
+        public MaterialSet MaterialSet => ServiceProvider.Get<MaterialSet>();
 
 
         public MainViewModel MainViewModel => ServiceProvider.Get<MainViewModel>();
