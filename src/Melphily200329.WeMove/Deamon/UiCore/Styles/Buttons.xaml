@@ -1,0 +1,479 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:uicoreattached="clr-namespace:Deamon.UiCore.AttachedProperties"
+                    >
+
+    <Style TargetType="{x:Type Button}" x:Key="CloseButton">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Foreground" Value="#FF000000" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="ToolTip" Value="关闭"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="grid"
+                          Background="{TemplateBinding Background}"
+                          MinHeight="36"
+                          MinWidth="36">
+                        <Path x:Name="icon"
+                              Width="15"
+                              Height="15"
+                              Fill="{TemplateBinding Foreground}"
+                              Stretch="Uniform"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                                  RenderTransformOrigin="0.5 0.5"
+                              Opacity="0.8">
+                            <Path.Data>
+                                <GeometryGroup FillRule="Nonzero">
+                                    <RectangleGeometry Rect="0 7 15 1"/>
+                                    <RectangleGeometry Rect="7 0 1 15"/>
+                                </GeometryGroup>
+                            </Path.Data>
+                            <Path.LayoutTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="IconScale"/>
+                                    <RotateTransform x:Name="IconRotate" Angle="45"/>
+                                </TransformGroup>
+                            </Path.LayoutTransform>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#FF000000" />
+                            <Setter Property="Opacity" TargetName="icon" Value="1"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="1.2"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="1.2"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconRotate"
+                                                         Storyboard.TargetProperty="Angle"
+                                                         To="-45"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="1"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="1"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconRotate"
+                                                         Storyboard.TargetProperty="Angle"
+                                                         To="45"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource SpeciColorBlueBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#99000000" />
+                            <Setter TargetName="icon" Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="MinimButton">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Foreground" Value="#FF000000" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="ToolTip" Value="最小化"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="grid"
+                          Background="{TemplateBinding Background}"
+                          MinHeight="36"
+                          MinWidth="36">
+                        <Path x:Name="icon"
+                              Width="15"
+                              Height="15"
+                              Fill="{TemplateBinding Foreground}"
+                              Stretch="Uniform"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                                  RenderTransformOrigin="0.5 0.5"
+                              Opacity="0.8">
+                            <Path.Data>
+                                <GeometryGroup FillRule="Nonzero">
+                                    <RectangleGeometry Rect="0 0 15 1"/>
+                                </GeometryGroup>
+                            </Path.Data>
+                            <Path.LayoutTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="IconScale"/>
+                                </TransformGroup>
+                            </Path.LayoutTransform>
+                            <Path.RenderTransform>
+                                <TranslateTransform x:Name="IconTranslate" X="0" Y="1"/>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#FF000000" />
+                            <Setter Property="Opacity" TargetName="icon" Value="1"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="1.2"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="1.2"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconTranslate"
+                                                         Storyboard.TargetProperty="Y" 
+                                                         To="6"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="1"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="1"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconTranslate"
+                                                         Storyboard.TargetProperty="Y"
+                                                         To="1"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource SpeciColorBlueBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#99000000" />
+                            <Setter TargetName="icon" Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="MaximButton" >
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Foreground" Value="#FF000000" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="uicoreattached:IsMaximizedProperty.Value" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="grid"
+                          Background="{TemplateBinding Background}"
+                          MinHeight="36"
+                          MinWidth="36">
+
+                        <Path x:Name="bigicon"
+                              Width="15"
+                              Height="15"
+                              Stroke="{TemplateBinding Foreground}"
+                              StrokeThickness="1"
+                              Stretch="Uniform"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                                  RenderTransformOrigin="0.5 0.5"
+                              Opacity="0.8">
+                            <Path.Data>
+                                <GeometryGroup FillRule="Nonzero">
+                                    <RectangleGeometry Rect="0 0 15 10"/>
+                                </GeometryGroup>
+                            </Path.Data>
+                            <Path.LayoutTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="OuterIconScale" ScaleX="1.5" ScaleY="1.5"/>
+                                </TransformGroup>
+                            </Path.LayoutTransform>
+                        </Path>
+                        <Path x:Name="icon"
+                              Width="15"
+                              Height="15"
+                              Stroke="{TemplateBinding Foreground}"
+                              StrokeThickness="1"
+                              Stretch="Uniform"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              RenderTransformOrigin="0.5 0.5"
+                              Opacity="0.8">
+                            <Path.Data>
+                                <GeometryGroup FillRule="Nonzero">
+                                    <RectangleGeometry Rect="0 0 15 10"/>
+                                </GeometryGroup>
+                            </Path.Data>
+                            <Path.LayoutTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="IconScale"/>
+                                </TransformGroup>
+                            </Path.LayoutTransform>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="uicoreattached:IsMaximizedProperty.Value" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="OuterIconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="1.5" To="1"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="OuterIconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="1.5" To="1"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="OuterIconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="1" To="1.5"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="OuterIconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="1" To="1.5"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="uicoreattached:IsMaximizedProperty.Value" Value="False"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="1" To="1.4"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="1" To="1.4"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         From="1.4" To="1"
+                                                         Duration="0:0:0.15" />
+                                        <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         From="1.4" To="1"
+                                                         Duration="0:0:0.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
+
+                        <Trigger Property="uicoreattached:IsMaximizedProperty.Value" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="bigicon"/>
+                            <Setter Property="ToolTip" Value="窗口化"/>
+                        </Trigger>
+                        <Trigger Property="uicoreattached:IsMaximizedProperty.Value" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="bigicon"/>
+                            <Setter Property="ToolTip" Value="最大化"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource SpeciColorBlueBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#99000000" />
+                            <Setter TargetName="icon" Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="SignButton">
+        <Setter Property="Background" Value="{StaticResource SpeciVerticalLinearBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource SpeciColorBlueBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightForeground}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="FontSize" Value="25" />
+        <Setter Property="TextBlock.FontFamily" Value="Microsoft YaHei UI" />
+        <Setter Property="TextBlock.FontWeight" Value="Light" />
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="uicoreattached:IsBusyProperty.Value" Value="False"/>
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="IsDefault" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border>
+
+                        <Grid Background="{TemplateBinding Background}">
+                            <TextBlock Visibility="{TemplateBinding uicoreattached:IsBusyProperty.Value,Converter={StaticResource BoolToVisibility},ConverterParameter=True}"
+                                    
+                                    Foreground="{TemplateBinding Foreground}" Text="{TemplateBinding Content}" x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+
+                            <TextBlock Visibility="{TemplateBinding uicoreattached:IsBusyProperty.Value,Converter={StaticResource BoolToVisibility}}"
+                                           Foreground="{TemplateBinding Foreground}" x:Name="SpinText" >
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+
+                                        <Setter Property="FontFamily" Value="宋体" />
+                                        <Setter Property="FontSize" Value="20" />
+                                        <Setter Property="Text" Value="◆" />
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <RotateTransform></RotateTransform>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=IsVisible}" Value="True">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Name="SpinStoryboard" >
+                                                        <Storyboard>
+                                                            <DoubleAnimation
+                                                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                                                                    From="0"
+                                                                                    To="360"
+                                                                                    Duration="0:0:1"
+                                                                                    RepeatBehavior="Forever" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <RemoveStoryboard BeginStoryboardName="SpinStoryboard" />
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+
+                                    </Style>
+
+                                </TextBlock.Style>
+
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="Foreground" Value="OrangeRed"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Opacity"  Value="0.9"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Opacity"  Value="0.6"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity"  Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="OnlyTextButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource SpeciVerticalLinearBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="TextBlock.FontFamily" Value="Microsoft YaHei UI" />
+        <Setter Property="TextBlock.FontWeight" Value="Regular" />
+        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="Foreground" Value="OrangeRed"/>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="true">
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Opacity" Value="0.7"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
