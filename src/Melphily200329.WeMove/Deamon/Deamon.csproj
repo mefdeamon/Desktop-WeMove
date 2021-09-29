@@ -4,7 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>wemove.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="wemove.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Melphi.Base\Melphi.Base.csproj" />
@@ -16,6 +21,12 @@
     <Reference Include="System.Windows.Interactivity">
       <HintPath>System.Windows.Interactivity.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="wemove.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
