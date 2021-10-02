@@ -47,6 +47,12 @@
     <Page Update="UiCore\Styles\IconButtons.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UiCore\Styles\Languages\String.en-US.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiCore\Styles\Languages\String.zh-CN.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UiCore\Styles\PasswordBoxs.xaml">
       <SubType>Designer</SubType>
     </Page>

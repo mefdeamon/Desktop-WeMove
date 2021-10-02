@@ -1,4 +1,4 @@
-﻿<Application x:Class="Deamon.App"
+<Application x:Class="Deamon.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Deamon">
@@ -14,6 +14,8 @@
                 <ResourceDictionary Source="/UiCore/Styles/TextBoxs.xaml"/>
                 <ResourceDictionary Source="/UiCore/Styles/PasswordBoxs.xaml"/>
                 <ResourceDictionary Source="/UiCore/Styles/CheckBoxs.xaml"/>
+                <ResourceDictionary Source="/UiCore/Styles/Languages/String.zh-CN.xaml"/>
+                <ResourceDictionary Source="/UiCore/Styles/Languages/String.en-US.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,4 +1,4 @@
-﻿using Deamon.Models;
+using Deamon.Models;
 using Melphi.Base;
 using System;
 using System.Collections.Generic;
@@ -19,6 +19,9 @@ namespace Deamon
         {
             base.OnStartup(e);
 
+            Language = "en-US";
+           // Language = "zh-CN";
+
             // Register modules into DI container
             ServiceProvider.LoadModule(new MainModule());
 
@@ -28,5 +31,43 @@ namespace Deamon
             App.Current.MainWindow.Show();
 
         }
+
+
+        private static string language;
+
+        public static string Language
+        {
+            get { return language; }
+            set
+            {
+                if (language != value)
+                {
+                    language = value;
+
+                    List<ResourceDictionary> dictionaryList = new List<ResourceDictionary>();
+                    foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
+                    {
+                        dictionaryList.Add(dictionary);
+                    }
+                    string requestedLanguage = string.Format(@"/UiCore/Styles/Languages/String.{0}.xaml", Language);
+                    ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedLanguage));
+                    if (resourceDictionary == null)
+                    {
+                        requestedLanguage = @"/UiCore/Styles/Languages/String.zh-CN.xaml";
+                        resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedLanguage));
+                    }
+                    if (resourceDictionary != null)
+                    {
+                        Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
+                        Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+                    }
+
+
+
+
+                }
+            }
+        }
+
     }
 }
