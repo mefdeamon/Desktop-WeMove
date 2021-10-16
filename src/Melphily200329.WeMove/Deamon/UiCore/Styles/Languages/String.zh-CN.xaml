@@ -4,9 +4,9 @@
 
     <sys:String x:Key="WinLabel_Close">关闭</sys:String>
     <sys:String x:Key="WinLabel_Minimize">最小化</sys:String>
-    <sys:String x:Key="WinLabel_Restore">x窗口化</sys:String>
+    <sys:String x:Key="WinLabel_Restore">窗口化</sys:String>
     <sys:String x:Key="WinLabel_Maximum">最大化</sys:String>
-    <sys:String x:Key="WinLabel_Email">电子邮件</sys:String>
+    <sys:String x:Key="WinLabel_Email">请输入电子邮件</sys:String>
     <sys:String x:Key="WinLabel_Password">请输入密码</sys:String>
     <sys:String x:Key="WinLabel_RememberMe">记住我</sys:String>
     <sys:String x:Key="WinLabel_Next">下一步</sys:String>

@@ -6,7 +6,7 @@
     <sys:String x:Key="WinLabel_Minimize">Minimize</sys:String>
     <sys:String x:Key="WinLabel_Restore">Restore</sys:String>
     <sys:String x:Key="WinLabel_Maximum">Maximum</sys:String>
-    <sys:String x:Key="WinLabel_Email">Email</sys:String>
+    <sys:String x:Key="WinLabel_Email">Enter email</sys:String>
     <sys:String x:Key="WinLabel_Password">Enter password</sys:String>
     <sys:String x:Key="WinLabel_RememberMe">Remember me</sys:String>
     <sys:String x:Key="WinLabel_Next">Next</sys:String>
