@@ -1,4 +1,4 @@
-﻿#region Deamon
+#region Deamon
 // the app's classes of wemove project
 #endregion
 
@@ -31,7 +31,7 @@ namespace Deamon.ViewModels.Sign
             });
             GotoCommand = new RelayCommand(() =>
              {
-                 ServiceProvider.Get<SignViewModel>().CurrentView = new Views.Sign.SignInMailView();
+                 ServiceProvider.Get<SignViewModel>().CurrentViewType = SignViewType.SignInMail;
              });
 
             Password = "deamon";

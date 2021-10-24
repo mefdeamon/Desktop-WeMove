@@ -12,7 +12,7 @@
     <sys:String x:Key="WinLabel_Next">下一步</sys:String>
     <sys:String x:Key="WinLabel_CreateNewUser">创建一个新用户</sys:String>
     <sys:String x:Key="WinLabel_BackEmailVerification">回到邮箱验证</sys:String>
+    <sys:String x:Key="WinLabel_Username">请输入昵称</sys:String>
 
-    
-    
+
 </ResourceDictionary>

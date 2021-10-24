@@ -1,5 +1,6 @@
-﻿using Deamon.ViewModels;
+using Deamon.ViewModels;
 using Deamon.ViewModels.Sign;
+using Deamon.Views.Sign;
 using Melphi.Base;
 using Melphi.IconSet;
 using System;
@@ -28,6 +29,9 @@ namespace Deamon.Models
             binder.BindSingleton<SignInMailViewModel>();
 
             binder.BindSingleton<SignInPassViewModel>();
+
+            binder.BindSingleton<SignUpViewModel>();
+            
         }
     }
 }

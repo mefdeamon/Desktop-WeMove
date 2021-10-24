@@ -1,50 +1,84 @@
-﻿<local:AnimatableBaseView x:Class="Deamon.Views.Sign.SignUpView"
+<local:AnimatableBaseView x:Class="Deamon.Views.Sign.SignUpView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Deamon.Views.Sign"
+                          xmlns:uicoreattached="clr-namespace:Deamon.UiCore.AttachedProperties"
                           xmlns:uicontrols="clr-namespace:Deamon.UiCore.Controls"
              mc:Ignorable="d"  Background="{StaticResource SpeciVerticalLinearBrush}"
+                          DataContext="{Binding SignUpViewModel, Source={StaticResource Locator}}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-            <uicontrols:IconButton 
-                Background="#FF3B5998" 
-                Style="{StaticResource StretchIconButton}" 
-                IconData="{Binding MaterialSet.Plus, Source={StaticResource Locator}}" 
-                />
-            <uicontrols:IconButton 
-                Background="#FF1DA1F2" 
-                Style="{StaticResource StretchIconButton}" 
-                IconData="{Binding MaterialSet.Share, Source={StaticResource Locator}}" 
-                />
 
-            <uicontrols:IconButton
-                Background="#FF738A8D"   
-                Style="{StaticResource StretchIconButton}" 
-                IconData="{Binding MaterialSet.Heart, Source={StaticResource Locator}}"
-                RenderTransformOrigin="0.5 0.5">
-                <uicontrols:IconButton.LayoutTransform>
-                    <RotateTransform Angle="180"/>
-                </uicontrols:IconButton.LayoutTransform>
-            </uicontrols:IconButton>
-            <uicontrols:IconButton 
-                Background="#FF848484"
-                Style="{StaticResource StretchIconButton}" 
-                IconData="{Binding MaterialSet.Trash, Source={StaticResource Locator}}" 
-                RenderTransformOrigin="0.5 0.5">
-                <uicontrols:IconButton.LayoutTransform>
-                    <RotateTransform Angle="180"/>
-                </uicontrols:IconButton.LayoutTransform>
-            </uicontrols:IconButton>
-            <uicontrols:IconButton 
-                Background="#FFFF6550" 
-                Style="{StaticResource StretchIconButton}" 
-                IconData="{Binding MaterialSet.Setting, Source={StaticResource Locator}}" 
-                />
+        <Grid  Background="{StaticResource LightBackground}" >
 
-        </StackPanel>
+            <DockPanel  Height="500" LastChildFill="False">
+                <Grid Width="430" DockPanel.Dock="Top"  
+                      HorizontalAlignment="Center">
+
+                    <Border Padding="36 32 36 0">
+                        <Grid>
+
+                            <WrapPanel Visibility="{Binding HasError,Converter={StaticResource BoolToVisibility}}" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0 50 0 0">
+                                <Viewbox Width="25">
+                                    <Grid >
+                                        <Ellipse  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="20" Height="20" Fill="Red"/>
+                                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="16" Foreground="White" Text="i"></TextBlock>
+                                    </Grid>
+                                </Viewbox>
+
+                                <TextBlock Margin="10 0 0 0" TextWrapping="Wrap"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding ErrorMessage}" Foreground="Red" FontSize="18"/>
+
+                            </WrapPanel>
+
+                            <StackPanel VerticalAlignment="Top">
+                                <Viewbox HorizontalAlignment="Left" Height="38">
+                                    <Path VerticalAlignment="Center" Width="280"
+          Data="M 20,80 L 100,80 L 100,0 L 140,60 L180,0 L180,80 L260 80 L260,120 L180,120 L180,200 L140,140 L100,200 L100,120 L20,120Z"
+          Stroke="{StaticResource SpeciVerticalLinearBrush}" StrokeThickness="30"
+          Stretch="None" Fill="{StaticResource LightForeground}"/>
+                                </Viewbox>
+
+
+                                <StackPanel Margin="0 70 0 0">
+                                    <TextBox Margin="0 0 0 20" Style="{StaticResource HintTagTextBox}"
+                                             Text="{Binding Email,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                             Tag="{DynamicResource WinLabel_Email}" />
+                                    <TextBox Margin="0 0 0 20" Style="{StaticResource HintTagTextBox}" 
+                                             Text="{Binding Username,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                             Tag="{DynamicResource WinLabel_Username}" 
+                                             />
+
+                                    <PasswordBox Margin="0 0 0 20" 
+                                                 Tag="{DynamicResource WinLabel_Password}" 
+                                                 Style="{StaticResource HintTagPasswordBox}" 
+                                                 uicoreattached:BoundPasswordProperty.Value="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                                    <Button Margin="0 0 0 20" IsEnabled="{Binding CanSign}" uicoreattached:IsBusyProperty.Value="{Binding IsSigning}"  Style="{StaticResource SignButton}" Content="{DynamicResource WinLabel_Next}" Command="{Binding SignCommand}"/>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </Grid>
+
+                    </Border>
+
+
+
+                </Grid>
+
+                <Rectangle DockPanel.Dock="Top" Margin="0 0 0 0" Height="1" Fill="{StaticResource SpeciVerticalLinearBrush}"/>
+                <Button DockPanel.Dock="Top" Command="{Binding GotoCommand}" Margin="36 16 0 0" Style="{StaticResource OnlyTextButton}" Content="{StaticResource WinLabel_BackEmailVerification}"/>
+
+            </DockPanel>
+
+            <Grid Background="#A0FFFFFF" Visibility="{Binding IsSigning,Converter= {StaticResource BoolToVisibility}}">
+                <local:SignLoadingView/>
+            </Grid>
+        </Grid>
     </Grid>
 </local:AnimatableBaseView>

@@ -1,4 +1,4 @@
-﻿#region Deamon
+#region Deamon
 // the app's classes of wemove project
 #endregion
 
@@ -28,7 +28,7 @@ namespace Deamon.ViewModels.Sign
             });
             GotoCommand = new RelayCommand(() =>
               {
-                  ServiceProvider.Get<SignViewModel>().CurrentView = new Views.Sign.SignUpView();
+                  ServiceProvider.Get<SignViewModel>().CurrentViewType = SignViewType.SignUp;
               });
 
             Email = "mel@wem.com";
@@ -46,7 +46,7 @@ namespace Deamon.ViewModels.Sign
             }
         }
 
-        public override ICommand SignCommand { get; set ; }
+        public override ICommand SignCommand { get; set; }
         public override ICommand GotoCommand { get; set; }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Deamon.ViewModels.Sign
 
                     if (datt.Rows[0]["Email"].ToString() == email)
                     {
-                        App.Current.Dispatcher.Invoke(() => ServiceProvider.Get<SignViewModel>().CurrentView = new Views.Sign.SignInPassView());
+                        App.Current.Dispatcher.Invoke(() => ServiceProvider.Get<SignViewModel>().CurrentViewType = SignViewType.SignInPass);
                     }
                     else
                     {

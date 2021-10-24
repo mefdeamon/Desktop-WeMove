@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Text;
@@ -40,6 +40,19 @@ namespace Melphi.Core
             DataSet ds = new DataSet();
             adap.Fill(ds);
             return ds;
+        }
+
+        /// <summary>
+        /// Execute Non Query SQL statement
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public int ExecuteNonQuery(string sql)
+        {
+            var mycom = dbConn.CreateCommand();
+            mycom.CommandText = sql;
+
+            return mycom.ExecuteNonQuery();
         }
     }
 }

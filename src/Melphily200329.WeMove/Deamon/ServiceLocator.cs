@@ -1,4 +1,4 @@
-﻿using Deamon.ViewModels;
+using Deamon.ViewModels;
 using Deamon.ViewModels.Sign;
 using Melphi.Base;
 using Melphi.IconSet;
@@ -18,6 +18,7 @@ namespace Deamon
         public SignViewModel SignViewModel => ServiceProvider.Get<SignViewModel>();
         public SignInMailViewModel SignInMailViewModel => ServiceProvider.Get<SignInMailViewModel>();
         public SignInPassViewModel SignInPassViewModel => ServiceProvider.Get<SignInPassViewModel>();
+        public SignUpViewModel SignUpViewModel => ServiceProvider.Get<SignUpViewModel>();
         
     }
 }
