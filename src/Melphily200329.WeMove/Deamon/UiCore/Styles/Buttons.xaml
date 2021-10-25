@@ -476,4 +476,64 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type Button}" x:Key="EyePressedButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Height" Value="45"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource SpeciVerticalLinearBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="12"/>
+        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+
+                        <Grid>
+                            <Viewbox x:Name="PART_eyeOpened" Visibility="Collapsed">
+                                <Path Data="M651.669528 512c0-14.5903-2.084475-28.290323-6.251378-41.395806-11.019984 24.423249-35.143405 41.395806-63.733557 41.395806l-7.440459-0.593518-5.957689 0.593518c-30.973432 0-56.285934-25.607214-56.285934-56.882522l0.297782-5.952572-0.297782-7.447623c0-28.290323 16.97665-52.709479 41.097-63.727417-13.104459-4.172019-26.802436-6.252401-41.097-6.252401-77.132728 0-139.67311 62.834071-139.67311 140.263557 0 77.428464 62.540382 139.971915 139.67311 139.971915S651.669528 589.428464 651.669528 512L651.669528 512zM958.70846 512c0 0-153.36904-297.80564-448.198905-297.80564-293.63669 0-445.219037 297.80564-445.219037 297.80564s164.385954 297.804616 447.306582 297.804616C805.038568 809.80564 958.70846 512 958.70846 512L958.70846 512zM304.725748 512c0-114.954125 92.619444-208.164017 207.27374-208.164017 114.657366 0 207.27067 93.209892 207.27067 208.164017 0 114.953102-92.613304 208.167087-207.27067 208.167087C397.345192 720.167087 304.725748 626.953102 304.725748 512L304.725748 512zM304.725748 512z"
+                                      Stretch="Uniform"
+                                      Width="45"
+                                      Height="45"
+                                      Fill="{TemplateBinding Foreground}"/>
+                            </Viewbox>
+
+                            <Viewbox x:Name="PART_eyeClosed" Visibility="Visible">
+                                <Path Data="M432.213333 675.925333l-33.621333 125.44-82.389333-22.101333 33.578666-125.397333a468.821333 468.821333 0 0 1-138.112-79.872l-91.861333 91.904-60.373333-60.373334 91.904-91.861333a467.498667 467.498667 0 0 1-101.162667-216.32l38.4-7.04A722.048 722.048 0 0 0 512 426.666667c158.037333 0 304.256-50.56 423.424-136.362667l38.4 6.997333a467.498667 467.498667 0 0 1-101.12 216.362667l91.861333 91.861333-60.373333 60.373334-91.861333-91.904a468.821333 468.821333 0 0 1-138.112 79.872l33.578666 125.44-82.389333 22.058666-33.621333-125.44a472.405333 472.405333 0 0 1-159.573334 0z"
+                                      Stretch="Uniform"
+                                      Width="45"
+                                      Height="45"
+                                      Stroke="{TemplateBinding Foreground}"/>
+                            </Viewbox>
+
+                        </Grid>
+                        
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Opacity" Value="0.7"/>
+                            <Setter Property="Visibility" TargetName="PART_eyeClosed" Value="Collapsed"/>
+                            <Setter Property="Visibility" TargetName="PART_eyeOpened" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
 </ResourceDictionary>

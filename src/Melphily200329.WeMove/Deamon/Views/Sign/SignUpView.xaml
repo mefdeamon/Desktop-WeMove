@@ -56,7 +56,7 @@
 
                                     <PasswordBox Margin="0 0 0 20" 
                                                  Tag="{DynamicResource WinLabel_Password}" 
-                                                 Style="{StaticResource HintTagPasswordBox}" 
+                                                 Style="{StaticResource ViewablePasswordBox}" 
                                                  uicoreattached:BoundPasswordProperty.Value="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <Button Margin="0 0 0 20" IsEnabled="{Binding CanSign}" uicoreattached:IsBusyProperty.Value="{Binding IsSigning}"  Style="{StaticResource SignButton}" Content="{DynamicResource WinLabel_Next}" Command="{Binding SignCommand}"/>

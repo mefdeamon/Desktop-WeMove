@@ -114,7 +114,7 @@
                                                        VerticalAlignment="Top" Opacity="1"
                                                        HorizontalAlignment="Left"
                                    Background="{TemplateBinding Background}"
-                                                       Foreground="#AA290736"
+                                                       Foreground="{DynamicResource DarkForeground}"
                                                        >
                         </TextBlock>
 
