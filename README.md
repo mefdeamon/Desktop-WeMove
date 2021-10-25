@@ -26,6 +26,12 @@ typora-root-url: ./
 
 
 
+- sign in password page（password verification )
+
+<img src="/docs/resource/readme.image/signup.png" alt="password" align='left' style="zoom:100%;" />
+
+
+
 - main page
 
 <img src="/docs/resource/readme.image/main.png" alt="main" align='left' style="zoom:100%;" />
