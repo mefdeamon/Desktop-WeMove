@@ -19,7 +19,8 @@ namespace Deamon
         {
             base.OnStartup(e);
 
-            Language = "en-US";
+            Language = System.Globalization.CultureInfo.CurrentCulture.IetfLanguageTag;
+
            // Language = "zh-CN";
 
             // Register modules into DI container
