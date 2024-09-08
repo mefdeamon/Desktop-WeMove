@@ -163,15 +163,9 @@
     </WindowChrome.WindowChrome>
     <Grid>
 
-        <TextBlock FontFamily="Microsoft YaHei UI" Text="欢迎进入 We Move 的世界" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="{StaticResource SpeciVerticalLinearBrush}"/>
         <DockPanel LastChildFill="True">
-            <Grid Height="200" Background="{StaticResource SpeciVerticalLinearBrush}" DockPanel.Dock="Top">
-                
-            </Grid>
 
-            <Grid DockPanel.Dock="Bottom" Height="5" Background="{StaticResource DarkForeground}"></Grid>
-
-            <Grid DockPanel.Dock="Top" Background="{StaticResource GridDrawingBrush}"></Grid>
+            <local:SearchView/>
 
         </DockPanel>
 

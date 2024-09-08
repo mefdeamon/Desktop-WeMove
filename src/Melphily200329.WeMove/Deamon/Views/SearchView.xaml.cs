@@ -19,6 +19,7 @@ namespace Deamon.Views
         public SearchView()
         {
             InitializeComponent();
+            DataContext = new SearchViewModel();
         }
     }
     public class IconModel

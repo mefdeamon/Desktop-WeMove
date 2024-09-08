@@ -5,111 +5,107 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Deamon.Views"
              xmlns:uicore="clr-namespace:Deamon.UiCore.Controls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Background="Transparent"
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
 
-        <StackPanel Margin="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300">
-            <DockPanel LastChildFill="True">
-                <Button DockPanel.Dock="Right" Command="{Binding SearchCommand}">
-                    <Path Stretch="Uniform" Margin="5" Width="20" Height="20"  Fill="Black" Data="{Binding IconSource.Edit, Source={StaticResource Locator}}">
-                    </Path>
-                </Button>
-                <TextBox DockPanel.Dock="Left" Text="{Binding Path=SearchText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-            </DockPanel>
+        <Border Padding="5 0 0 5" Background="White">
+            <StackPanel  HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" >
+                <DockPanel LastChildFill="True" Background="White">
+                    <Button DockPanel.Dock="Right" Background="Transparent" Padding="5" Command="{Binding SearchCommand}">
+                        <Path Stretch="Uniform" Margin="5" Width="20" Height="20"  Fill="Black" Data="{Binding IconSource.Edit, Source={StaticResource Locator}}">
+                        </Path>
+                    </Button>
+                    <TextBox DockPanel.Dock="Left" Style="{DynamicResource HintTagTextBox}" Text="{Binding Path=SearchText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
 
-            <ItemsControl Margin="10,0" ItemsSource="{Binding SearchedIcons}" >
+                <ItemsControl ItemsSource="{Binding SearchedIcons}" >
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Padding="5" Margin="5" BorderThickness="1">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF290736"/>
-                                    <GradientStop Color="#FF2C6976" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
-                            <uicore:CommandControl Command="{Binding DataContext.ChooseCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType={x:Type Window}}}" CommandParameter="{Binding .}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="5" Margin="0 10 10 0" BorderThickness="1">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF290736"/>
+                                        <GradientStop Color="#FF2C6976" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <uicore:CommandControl Command="{Binding DataContext.ChooseCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType={x:Type UserControl}}}" CommandParameter="{Binding .}">
 
-                                <DockPanel>
+                                    <DockPanel>
 
-                                    <Grid x:Name="grid" DockPanel.Dock="Top"
-                                          Background="Transparent"
-                                          MinHeight="36"
-                                          MinWidth="36">
-                                        <Path x:Name="icon"
-                                              Data="{Binding IconData}" 
-                                              Width="20"
-                                              Height="20"
-                                              Fill="Black"
-                                              Stretch="Uniform"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              Opacity="0.8">
-                                            <Path.LayoutTransform>
-                                                <ScaleTransform x:Name="IconScale"/>
-                                            </Path.LayoutTransform>
-                                        </Path>
-                                    </Grid>
-                                    <TextBlock Text="{Binding IconName}" VerticalAlignment="Bottom"/>
-                                </DockPanel>
-                            </uicore:CommandControl>
+                                        <Grid x:Name="grid" DockPanel.Dock="Top"
+                                   Background="Transparent"
+                                   MinHeight="36"
+                                   MinWidth="36">
+                                            <Path x:Name="icon"
+                                       Data="{Binding IconData}" 
+                                       Width="20"
+                                       Height="20"
+                                       Fill="Black"
+                                       Stretch="Uniform"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Opacity="0.8">
+                                                <Path.LayoutTransform>
+                                                    <ScaleTransform x:Name="IconScale"/>
+                                                </Path.LayoutTransform>
+                                            </Path>
+                                        </Grid>
+                                        <TextBlock Text="{Binding IconName}" VerticalAlignment="Bottom"/>
+                                    </DockPanel>
+                                </uicore:CommandControl>
 
-                        </Border>
+                            </Border>
 
-                        <DataTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" TargetName="icon" Value="1"/>
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="IconScale"
-                                                             Storyboard.TargetProperty="ScaleX"
-                                                             To="1.2"
-                                                             Duration="0:0:0.15" />
-                                            <DoubleAnimation Storyboard.TargetName="IconScale"
-                                                             Storyboard.TargetProperty="ScaleY"
-                                                             To="1.2"
-                                                             Duration="0:0:0.15" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="IconScale"
-                                                             Storyboard.TargetProperty="ScaleX"
-                                                             To="1"
-                                                             Duration="0:0:0.15" />
-                                            <DoubleAnimation Storyboard.TargetName="IconScale"
-                                                             Storyboard.TargetProperty="ScaleY"
-                                                             To="1"
-                                                             Duration="0:0:0.15" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" VerticalAlignment="Top"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                            <DataTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" TargetName="icon" Value="1"/>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                      Storyboard.TargetProperty="ScaleX"
+                                                      To="1.2"
+                                                      Duration="0:0:0.15" />
+                                                <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                      Storyboard.TargetProperty="ScaleY"
+                                                      To="1.2"
+                                                      Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                      Storyboard.TargetProperty="ScaleX"
+                                                      To="1"
+                                                      Duration="0:0:0.15" />
+                                                <DoubleAnimation Storyboard.TargetName="IconScale"
+                                                      Storyboard.TargetProperty="ScaleY"
+                                                      To="1"
+                                                      Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
 
-        </StackPanel>
+            </StackPanel>
+        </Border>
 
-        <Grid Margin="30">
-            <Border>
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF290736"/>
-                        <GradientStop Color="#FF2C6976" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Path Margin="20" Stretch="Uniform" Data="{Binding SelectedIcon.IconData}" Fill="White"/>
+        <Grid >
+            <Border  Background="{StaticResource GridDrawingBrush}">
+                <Path Margin="20" Stretch="Uniform" Data="{Binding SelectedIcon.IconData}" Fill="#FF290736"/>
             </Border>
         </Grid>
 
