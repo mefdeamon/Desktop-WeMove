@@ -1,0 +1,8 @@
+﻿CREATE TABLE `user_info` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `UserName` varchar(255) DEFAULT NULL COMMENT '用户名',
+  `Email` varchar(255) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `Password` varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
+  `CreateDate` date DEFAULT '2020-07-16' COMMENT '创建日期',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COMMENT='用户信息表'
