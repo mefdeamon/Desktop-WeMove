@@ -4,10 +4,13 @@
 
 using Deamon.UiCore;
 using Melphi.Base;
-using Melphi.Core;
-using System;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
+using System;
 
 namespace Deamon.ViewModels.Sign
 {
@@ -93,59 +96,63 @@ namespace Deamon.ViewModels.Sign
                 return;
             }
 
-            // TODO :SQL Query
-            await Task.Run(() =>
-            {
-                string ConnectionString = @"server = 127.0.0.1; userid = root; password = deamon; database = wemove; persistsecurityinfo = True;";
-                MySqlDatabaseEntity mduser = new MySqlDatabaseEntity(ConnectionString);
+            var http = "http://localhost:5000";
+            var api = "/api/auth/sign-up";
+            var requestUrl = http + api;
 
+            using (var client = new HttpClient())
+            {
+                var postData = new
+                {
+                    Email = email,
+                    UserName = username,
+                    Password = password
+                };
+                var json = JsonSerializer.Serialize(postData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = null;
                 try
                 {
-                    // 打开数据库
-                    mduser.Open();
+                    response = await client.PostAsync(requestUrl, content);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // 模拟未连接网络
-                    ErrorMessage = "错误！网络连接失败，请重试！";
+                    ErrorMessage = ex.Message;
                     HasError = true;
                     WipeErrorAffterMS();
                     return;
                 }
 
-                // sql 查询语句
-                string sqlCmdStr = $"select Email from user_info where Email = '{email}'";
-
-                var data = mduser.ExecuteSelect(sqlCmdStr);
-                if (data.Tables[0] != null && data.Tables[0].Rows.Count > 0)
-                {
-                    ErrorMessage = "错误！当前邮箱已注册！";
-                    HasError = true;
-                    WipeErrorAffterMS();
-
-                    return;
-                }
-
-
-                // sql 插入
-                string sqlInsert = $"insert into user_info ( Email, Username, Password, CreateDate) values ( '{email}','{username}', '{password}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
-                var rest = mduser.ExecuteNonQuery(sqlInsert);
-                if (rest > 0)
+                if (response.IsSuccessStatusCode)
                 {
                     // start up main window
                     App.Current.Dispatcher.Invoke(() =>
                     {
-                        var window = App.Current.MainWindow;
+                        Window window = App.Current.MainWindow;
                         App.Current.MainWindow = new Views.MainWindow();
                         window.Close();
                         App.Current.MainWindow.Show();
                     });
                 }
+                else
+                {
+                    var contentString = await response.Content.ReadAsStringAsync();
+                    ApiResponse apiResponse = null;
+                    try
+                    {
+                        apiResponse = JsonSerializer.Deserialize<ApiResponse>(contentString);
+                        ErrorMessage = apiResponse == null ? "response content json deserialize error" : apiResponse.message;
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorMessage = ex.Message;
+                    }
 
-                // 关闭数据库
-                mduser.Close();
-
-            });
+                    HasError = true;
+                    WipeErrorAffterMS();
+                    return;
+                }
+            }
         }
     }
 }

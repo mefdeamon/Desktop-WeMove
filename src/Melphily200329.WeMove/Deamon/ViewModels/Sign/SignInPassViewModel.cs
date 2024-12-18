@@ -3,13 +3,12 @@
 #endregion
 
 using Melphi.Base;
-using Melphi.Core;
 using System;
-using System.Collections.Generic;
+using System.Net.Http;
+using System.Text.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Deamon.ViewModels.Sign
@@ -61,7 +60,6 @@ namespace Deamon.ViewModels.Sign
         /// <returns></returns>
         private async Task SignIn()
         {
-
             if (password.Length < 6)
             {
                 ErrorMessage = "错误！邮箱格式不正确，请重试！";
@@ -69,59 +67,63 @@ namespace Deamon.ViewModels.Sign
                 WipeErrorAffterMS();
                 return;
             }
+            
+            var http = "http://localhost:5000";
+            var api = "/api/auth/sign-in-password";
+            var requestUrl = http + api;
 
-            // TODO :SQL Query
-            await Task.Run(() =>
+            using (var client = new HttpClient())
             {
-                string ConnectionString = @"server = 127.0.0.1; userid = root; password = deamon; database = wemove; persistsecurityinfo = True;";
-                MySqlDatabaseEntity mduser = new MySqlDatabaseEntity(ConnectionString);
-
+                var postData = new
+                {
+                    Email = ServiceProvider.Get<SignInMailViewModel>().Email,
+                    Password = password
+                };
+                var json = JsonSerializer.Serialize(postData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = null;
                 try
                 {
-                    // 打开数据库
-                    mduser.Open();
+                    response = await client.PostAsync(requestUrl, content);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // 模拟未连接网络
-                    ErrorMessage = "错误！网络连接失败，请重试！";
+                    ErrorMessage = ex.Message;
                     HasError = true;
                     WipeErrorAffterMS();
                     return;
                 }
 
-                // sql 查询语句
-                string sqlCmdStr = @"select Password from user_info";
-
-                var data = mduser.ExecuteSelect(sqlCmdStr);
-                if (data.Tables[0] != null && data.Tables[0].Rows.Count > 0)
+                if (response.IsSuccessStatusCode)
                 {
-                    var datt = data.Tables[0];
-
-                    if (datt.Rows[0]["Password"].ToString() == password)
+                    // start up main window
+                    App.Current.Dispatcher.Invoke(() =>
                     {
-                        // start up main window
-                        App.Current.Dispatcher.Invoke(() =>
-                        {
-                            Window window = App.Current.MainWindow;
-                            App.Current.MainWindow = new Views.MainWindow();
-                            window.Close();
-                            App.Current.MainWindow.Show();
-                        });
-                    }
-                    else
-                    {
-                        ErrorMessage = "错误！密码不正确，请重试！";
-                        HasError = true;
-                        WipeErrorAffterMS();
-                        return;
-                    }
+                        Window window = App.Current.MainWindow;
+                        App.Current.MainWindow = new Views.MainWindow();
+                        window.Close();
+                        App.Current.MainWindow.Show();
+                    });
                 }
+                else
+                {
+                    var contentString = await response.Content.ReadAsStringAsync();
+                    ApiResponse apiResponse = null;
+                    try
+                    {
+                        apiResponse = JsonSerializer.Deserialize<ApiResponse>(contentString);
+                        ErrorMessage = apiResponse == null ? "response content json deserialize error" : apiResponse.message;
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorMessage = ex.Message;
+                    }
 
-                // 关闭数据库
-                mduser.Close();
-
-            });
+                    HasError = true;
+                    WipeErrorAffterMS();
+                    return;
+                }
+            }
         }
 
     }

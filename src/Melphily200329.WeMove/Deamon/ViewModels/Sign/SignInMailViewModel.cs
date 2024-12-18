@@ -4,10 +4,13 @@
 
 using Deamon.UiCore;
 using Melphi.Base;
-using Melphi.Core;
 using System;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static Deamon.ViewModels.Sign.SignUpViewModel;
 
 namespace Deamon.ViewModels.Sign
 {
@@ -64,50 +67,60 @@ namespace Deamon.ViewModels.Sign
                 return;
             }
 
-            // TODO :SQL Query
-            await Task.Run(() =>
-            {
-                string ConnectionString = @"server = 127.0.0.1; userid = root; password = deamon; database = wemove; persistsecurityinfo = True;";
-                MySqlDatabaseEntity mduser = new MySqlDatabaseEntity(ConnectionString);
+            var http = "http://localhost:5000";
+            var api = "/api/auth/sign-in-email";
+            var requestUrl = http + api;
 
+            using (var client = new HttpClient())
+            {
+                var postData = new
+                {
+                    Email = email,
+                    Password = ""
+                };
+                var json = JsonSerializer.Serialize(postData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = null;
                 try
                 {
-                    // 打开数据库
-                    mduser.Open();
+                    response = await client.PostAsync(requestUrl, content);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // 模拟未连接网络
-                    ErrorMessage = "错误！网络连接失败，请重试！";
+                    ErrorMessage = ex.Message;
                     HasError = true;
                     WipeErrorAffterMS();
                     return;
                 }
 
-                // sql 查询语句
-                string sqlCmdStr = @"select Email from user_info";
-
-                var data = mduser.ExecuteSelect(sqlCmdStr);
-                if (data.Tables[0] != null && data.Tables[0].Rows.Count > 0)
+                if (response.IsSuccessStatusCode)
                 {
-                    var datt = data.Tables[0];
-
-                    if (datt.Rows[0]["Email"].ToString() == email)
-                    {
-                        App.Current.Dispatcher.Invoke(() => ServiceProvider.Get<SignViewModel>().CurrentViewType = SignViewType.SignInPass);
-                    }
-                    else
-                    {
-                        ErrorMessage = "错误！不存在当前邮箱，请重试！";
-                        HasError = true;
-                        WipeErrorAffterMS();
-                    }
+                    App.Current.Dispatcher.Invoke(() => ServiceProvider.Get<SignViewModel>().CurrentViewType = SignViewType.SignInPass);
                 }
+                else
+                {
+                    var contentString = await response.Content.ReadAsStringAsync();
+                    ApiResponse apiResponse = null;
+                    try
+                    {
+                        apiResponse = JsonSerializer.Deserialize<ApiResponse>(contentString);
+                        ErrorMessage = apiResponse == null ? "response content json deserialize error" : apiResponse.message;
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorMessage = ex.Message;
+                    }
 
-                // 关闭数据库
-                mduser.Close();
-
-            });
+                    HasError = true;
+                    WipeErrorAffterMS();
+                    return;
+                }
+            }
         }
+    }
+
+    public class ApiResponse
+    {
+        public string message { get; set; }
     }
 }
